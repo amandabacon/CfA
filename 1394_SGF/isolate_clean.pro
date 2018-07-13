@@ -109,16 +109,18 @@ bv[255] = 0
 
 TVLCT, rv, gv, bv
 
-PLOT_IMAGE, REFORM(byte_scale), ORIGIN = [solar_x_clean[0], solar_y_clean[0]], SCALE = [resx_clean, resy_clean], XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL, /NOSCALE
-COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.35,0.91,0.70,0.92], /TOP
+PLOT_IMAGE, REFORM(byte_scale), ORIGIN = [solar_x_clean[0], solar_y_clean[0]], SCALE = [resx_clean, resy_clean], XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL, /NOSCALE, XTHICK = 3, YTHICK = 3, XCHARSIZE = 1.6, YCHARSIZE = 1.55, TITLECHARSIZE = 1.6
+COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.35,0.91,0.70,0.92], /TOP, CHARSIZE = 1.3
 
 screenshot = TVRD(TRUE = 1)
 WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_UVB.png', screenshot
 
 ;save as ps
 
+!P.FONT = 1
+
 SET_PLOT, 'ps'
-DEVICE, COLOR = 1, BITS_PER_PIXEL = 8, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_UVB.eps', /ENCAPSULATED
+DEVICE, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'Helvetica', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_UVB.eps', /ENCAPSULATED
 
 EIS_COLORS, /INTENSITY
 
@@ -129,8 +131,8 @@ bv[255] = 0
 
 TVLCT, rv, gv, bv
 
-PLOT_IMAGE, REFORM(byte_scale), ORIGIN = [solar_x_clean[0], solar_y_clean[0]], SCALE = [resx_clean, resy_clean], XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL, /NOSCALE
-COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.35,0.91,0.70,0.92], /TOP
+PLOT_IMAGE, REFORM(byte_scale), ORIGIN = [solar_x_clean[0], solar_y_clean[0]], SCALE = [resx_clean, resy_clean], XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL, /NOSCALE, XCHARSIZE = 1.8, YCHARSIZE = 1.8
+COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.35,0.91,0.70,0.92], /TOP, CHARSIZE = 1.0
 
 DEVICE, /CLOSE
 
