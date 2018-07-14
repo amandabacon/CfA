@@ -165,36 +165,38 @@ COLORBAR, FORMAT = '(F0.2)', TITLE = "Doppler Shift [km*s^-1]", POSITION = [0.67
 WINDOW, XSIZE = 1200, YSIZE = 500, RETAIN = 2
 
 EIS_COLORS, /INTENSITY
-PLOT_IMAGE, REFORM(coeff_arr[0,*,*]), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = 5, MAX = 75, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL
-COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.07,0.91,0.33,0.92], /TOP
+PLOT_IMAGE, REFORM(coeff_arr[0,*,*]), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = 5, MAX = 75, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL, XTHICK = 3, YTHICK = 3, XCHARSIZE = 1.6, YCHARSIZE = 1.55, TITLECHARSIZE = 1.6
+COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.07,0.91,0.33,0.92], /TOP, CHARSIZE = 1.3
 
 EIS_COLORS, /WIDTH
-PLOT_IMAGE, REFORM(vel_width), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = 7, MAX = 75, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0+dx,y0,x0+(2.0*dx),y0+dy], /CURRENT, /NORMAL, /NOERASE, YCHARSIZE = 0.001
-COLORBAR, FORMAT = '(F0.2)', TITLE = "Exponential Line Width [km*s^-1]", RANGE = [7, 75], /YLOG, YTICKS = 10, POSITION = [0.37,0.91,0.63,0.92], /TOP
+PLOT_IMAGE, REFORM(vel_width), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = 7, MAX = 75, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0+dx,y0,x0+(2.0*dx),y0+dy], /CURRENT, /NORMAL, /NOERASE, YCHARSIZE = 0.001, XTHICK = 3, YTHICK = 3, XCHARSIZE = 1.6, TITLECHARSIZE = 1.6
+COLORBAR, FORMAT = '(F0.2)', TITLE = "Exponential Line Width [km*s^-1]", RANGE = [7, 75], /YLOG, YTICKS = 10, POSITION = [0.37,0.91,0.63,0.92], /TOP, CHARSIZE = 1.3
 
-EIS_COLORS, /VELOCITY
-PLOT_IMAGE, REFORM(velocity), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = -35, MAX = 35, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0+(2.0*dx),y0,x0+(3.0*dx),y0+dy], /CURRENT,/NORMAL,/NOERASE, YCHARSIZE = 0.001
-COLORBAR, FORMAT = '(F0.2)', TITLE = "Doppler Shift [km*s^-1]", POSITION = [0.67,0.91,0.93,0.92], /TOP, /YLOG, YTICKS = 10, RANGE = [-35, 35]
+EIS_COLORS, /VELOCITY, /DARK
+PLOT_IMAGE, REFORM(velocity), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = -35, MAX = 35, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0+(2.0*dx),y0,x0+(3.0*dx),y0+dy], /CURRENT,/NORMAL,/NOERASE, YCHARSIZE = 0.001, XTHICK = 3, YTHICK = 3, XCHARSIZE = 1.6, TITLECHARSIZE = 1.6
+COLORBAR, FORMAT = '(F0.2)', TITLE = "Doppler Shift [km*s^-1]", POSITION = [0.67,0.91,0.93,0.92], /TOP, /YLOG, YTICKS = 10, RANGE = [-35, 35], CHARSIZE = 1.3
 
 screenshot = TVRD(TRUE = 1)
 WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/param_maps/param_plot.png', screenshot
 
 ;save as ps
 
+!P.FONT = 1
+
 SET_PLOT, 'ps'
-DEVICE, COLOR = 1, BITS_PER_PIXEL = 8, FILENAME = '/data/khnum/REU2018/abacon/data/detection/param_maps/param_plot.eps', /ENCAPSULATED
+DEVICE, XSIZE = 15, YSIZE = 9, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/param_maps/param_plot.eps', /ENCAPSULATED
 
 EIS_COLORS, /INTENSITY
-PLOT_IMAGE, REFORM(coeff_arr[0,*,*]), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = 5, MAX = 75, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL
-COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.07,0.91,0.33,0.92], /TOP
+PLOT_IMAGE, REFORM(coeff_arr[0,*,*]), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = 5, MAX = 75, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL, XTHICK = 3, YTHICK = 3, XCHARSIZE = 1.7, YCHARSIZE = 1.7
+COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.07,0.91,0.33,0.92], /TOP, CHARSIZE = 1.4
 
 EIS_COLORS, /WIDTH
-PLOT_IMAGE, REFORM(vel_width), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = 7, MAX = 75, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0+dx,y0,x0+(2.0*dx),y0+dy], /CURRENT, /NORMAL, /NOERASE, YCHARSIZE = 0.001
-COLORBAR, FORMAT = '(F0.2)', TITLE = "Exponential Line Width [km*s^-1]", RANGE = [7, 75], /YLOG, YTICKS = 10, POSITION = [0.37,0.91,0.63,0.92], /TOP
+PLOT_IMAGE, REFORM(vel_width), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = 7, MAX = 75, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0+dx,y0,x0+(2.0*dx),y0+dy], /CURRENT, /NORMAL, /NOERASE, YCHARSIZE = 0.001, XTHICK = 3, YTHICK = 3, XCHARSIZE = 1.7
+COLORBAR, FORMAT = '(F0.2)', TITLE = "Exponential Line Width [km*s^-1]", RANGE = [7, 75], /YLOG, YTICKS = 10, POSITION = [0.37,0.91,0.63,0.92], /TOP, CHARSIZE = 1.4
 
-EIS_COLORS, /VELOCITY
-PLOT_IMAGE, REFORM(velocity), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = -35, MAX = 35, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0+(2.0*dx),y0,x0+(3.0*dx),y0+dy], /CURRENT,/NORMAL,/NOERASE, YCHARSIZE = 0.001
-COLORBAR, FORMAT = '(F0.2)', TITLE = "Doppler Shift [km*s^-1]", POSITION = [0.67,0.91,0.93,0.92], /TOP, /YLOG, YTICKS = 10, RANGE = [-35, 35]
+EIS_COLORS, /VELOCITY, /DARK
+PLOT_IMAGE, REFORM(velocity), ORIGIN = [solarx1330[0], solary1330[0]], SCALE = [ResX1330, ResY1330], MIN = -35, MAX = 35, XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0+(2.0*dx),y0,x0+(3.0*dx),y0+dy], /CURRENT,/NORMAL,/NOERASE, YCHARSIZE = 0.001, XTHICK = 3, YTHICK = 3, XCHARSIZE = 1.7
+COLORBAR, FORMAT = '(F0.2)', TITLE = "Doppler Shift [km*s^-1]", POSITION = [0.67,0.91,0.93,0.92], /TOP, /YLOG, YTICKS = 10, RANGE = [-35, 35], CHARSIZE = 1.4
 
 DEVICE, /CLOSE
 
