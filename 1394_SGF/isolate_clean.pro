@@ -94,7 +94,10 @@ TVLCT, rv, gv, bv
 ;PRINT, SIZE(REFORM(byte_scale)) ;2D 400,1096
 
 PLOT_IMAGE, REFORM(byte_scale), ORIGIN = [solar_x_clean[0], solar_y_clean[0]], SCALE = [resx_clean, resy_clean], XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL, /NOSCALE
-COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.35,0.91,0.70,0.92], /TOP
+
+TVLCT, [[255], [255], [255]], 1
+
+COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.32,0.91,0.70,0.92], /TOP, COLOR = 1
 
 ;save as png
 
@@ -109,8 +112,11 @@ bv[255] = 0
 
 TVLCT, rv, gv, bv
 
-PLOT_IMAGE, REFORM(byte_scale), ORIGIN = [solar_x_clean[0], solar_y_clean[0]], SCALE = [resx_clean, resy_clean], XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL, /NOSCALE, XTHICK = 3, YTHICK = 3, XCHARSIZE = 1.6, YCHARSIZE = 1.55, TITLECHARSIZE = 1.6
-COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.35,0.91,0.70,0.92], /TOP, CHARSIZE = 1.3
+PLOT_IMAGE, REFORM(byte_scale), ORIGIN = [solar_x_clean[0], solar_y_clean[0]], SCALE = [resx_clean, resy_clean], XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL, /NOSCALE, XTHICK = 3, YTHICK = 3, XCHARSIZE = 1.7, YCHARSIZE = 1.7
+
+TVLCT, [[255], [255], [255]], 1
+
+COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.32,0.91,0.70,0.92], /TOP, CHARSIZE = 1.4, COLOR = 1
 
 screenshot = TVRD(TRUE = 1)
 WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_UVB.png', screenshot
@@ -120,7 +126,7 @@ WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_UVB.png
 !P.FONT = 1
 
 SET_PLOT, 'ps'
-DEVICE, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'Helvetica', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_UVB.eps', /ENCAPSULATED
+DEVICE, XSIZE = 10, YSIZE = 8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_UVB.eps', /ENCAPSULATED
 
 EIS_COLORS, /INTENSITY
 
@@ -131,8 +137,9 @@ bv[255] = 0
 
 TVLCT, rv, gv, bv
 
-PLOT_IMAGE, REFORM(byte_scale), ORIGIN = [solar_x_clean[0], solar_y_clean[0]], SCALE = [resx_clean, resy_clean], XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL, /NOSCALE, XCHARSIZE = 1.8, YCHARSIZE = 1.8
-COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.35,0.91,0.70,0.92], /TOP, CHARSIZE = 1.0
+PLOT_IMAGE, REFORM(byte_scale), ORIGIN = [solar_x_clean[0], solar_y_clean[0]], SCALE = [resx_clean, resy_clean], XTITLE = 'Solar X [arcsec]', YTITLE = 'Solar Y [arcsec]', POSITION = [x0,y0,x0+dx,y0+dy], /NORMAL, /NOSCALE, XCHARSIZE = 1.6, YCHARSIZE = 1.6, CHARSIZE = 1.6
+
+COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,75], /YLOG, YTICKS = 10, POSITION = [0.35,0.91,0.70,0.92], /TOP, CHARSIZE = 1.4
 
 DEVICE, /CLOSE
 
