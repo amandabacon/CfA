@@ -63,7 +63,7 @@ this_cut_y = REFORM(this_cut[1,*])
 
 prof = REFORM(nspectraRast1394[*,this_cut_y[414],this_cut_r[414]])
 
-WINDOW, XSIZE = 900, YSIZE = 500
+WINDOW, XSIZE = 900, YSIZE = 700
 PLOT, lambda1394[18:141], prof, XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395.3], POSITION = [x0,y0,x0+dx,y0+dy], XCHARSIZE = 1.8, YCHARSIZE = 1.8, XTHICK = 3, YTHICK = 3, XSTYLE = 1, THICK = 2
 
 XYOUTS, 1392.9, 233, 'Fe II', CHARSIZE = 1.4
@@ -78,7 +78,7 @@ OPLOT, lambda1394[18:141], n_avg_prof, COLOR = 255, THICK = 2
 ;save as png
 
 TVLCT, [[255], [255], [255]], 2
-WINDOW, XSIZE = 900, YSIZE = 500, RETAIN = 2
+WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
 PLOT, lambda1394[18:141], prof, XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395.3], POSITION = [x0,y0,x0+dx,y0+dy], XCHARSIZE = 1.8, YCHARSIZE = 1.8, XTHICK = 3, YTHICK = 3, XSTYLE = 1, THICK = 2, COLOR = 2
 
 XYOUTS, 1392.9, 233, 'Fe II', CHARSIZE = 1.4, COLOR = 2
@@ -101,7 +101,7 @@ TVLCT, [[0], [0], [0]], 1
 !P.BACKGROUND = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 9, YSIZE = 6, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/funky.eps', /ENCAPSULATED
+DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/funky.eps', /ENCAPSULATED
 
 TVLCT, [[255], [255], [255]], 2
 PLOT, lambda1394[18:141], prof, XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395.3], POSITION = [x0,y0,x0+dx,y0+dy], XCHARSIZE = 1.9, YCHARSIZE = 1.9, XSTYLE = 1, THICK = 4, COLOR = 2

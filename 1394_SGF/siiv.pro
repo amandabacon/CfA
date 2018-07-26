@@ -107,7 +107,7 @@ wave0 = coeff2[1]
 ;Again, tranform from integer to
 ;decimal by using 'D'
 wsx = 900D
-wsy = 500D
+wsy = 700D
 ;**********************************
 
 WINDOW, XSIZE = wsx, YSIZE = wsy
@@ -127,7 +127,7 @@ nc = 1.0
 
 ;Choose x0 and calc. y0, dx, and dy using:
 x0 = 0.2
-y0 = 0.5*(1.0-((aspr/aspw)*(nr/nc)*(1.0-(3.0*x0))))
+y0 = 0.5*(1.0-((aspr/aspw)*(nr/nc)*(1.0-(2.0*x0))))
 dx = (1.0/nc)*(1.0-(2.0*x0))
 dy = (1.0/nr)*(1.0-(2.0*y0))
 
@@ -209,12 +209,12 @@ TVLCT, [[0], [0], [0]], 1
 
 ;intensity v width plot
 
-WINDOW, XSIZE = 900, YSIZE = 500
+WINDOW, XSIZE = 900, YSIZE = 700
 PLOT, psym = 3, vel_width, coeff_arr[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], POSITION = [x0,y0,x0+dx,y0+dy]
 
 ;perform isolation of UV burst region
 
-WINDOW, XSIZE = 900, YSIZE = 500
+WINDOW, XSIZE = 900, YSIZE = 700
 PLOT, psym = 3, vel_width[not_cut_ind], coeff_arr_peak[not_cut_ind], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], POSITION = [x0,y0,x0+dx,y0+dy]
 TVLCT, [[255], [0], [0]], 255
 OPLOT, psym = 3, vel_width[cut_ind], coeff_arr_peak[cut_ind], COLOR = 255
@@ -224,7 +224,7 @@ OPLOT, psym = 3, vel_width[cut_ind], coeff_arr_peak[cut_ind], COLOR = 255
 TVLCT, [[0], [0], [0]], 1
 !P.BACKGROUND = 1
 
-WINDOW, XSIZE = 900, YSIZE = 500, RETAIN = 2
+WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
 TVLCT, [[255], [255], [255]], 0
 PLOT, psym = 3, vel_width, coeff_arr[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], COLOR = 0, POSITION = [x0,y0,x0+dx,y0+dy], XCHARSIZE = 1.5, YCHARSIZE = 1.5, XTHICK = 3, YTHICK = 3, CHARSIZE = 1.6
 screenshot = TVRD(TRUE = 1)
@@ -233,7 +233,7 @@ WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_plot.pn
 TVLCT, [[0], [0], [0]], 1
 !P.BACKGROUND = 1
 
-WINDOW, XSIZE = 900, YSIZE = 500, RETAIN = 2
+WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
 TVLCT, [[255], [255], [255]], 0
 PLOT, psym = 3, vel_width[not_cut_ind], coeff_arr_peak[not_cut_ind], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], COLOR = 0, POSITION = [x0,y0,x0+dx,y0+dy], XCHARSIZE = 1.5, YCHARSIZE = 1.5, XTHICK = 3, YTHICK = 3, CHARSIZE = 1.6
 TVLCT, [[255], [0], [0]], 255
@@ -249,7 +249,7 @@ WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/1394_SGF/cut_intensity_plo
 ;!P.BACKGROUND = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 8, YSIZE = 7, /INCHES, COLOR = 0, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_plot.eps', /ENCAPSULATED
+DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 0, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_plot.eps', /ENCAPSULATED
 
 PLOT, psym = 3, vel_width, coeff_arr[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], XTHICK = 4, YTHICK = 4, XCHARSIZE = 1.5, YCHARSIZE = 1.5, CHARSIZE = 1.5
 
@@ -259,7 +259,7 @@ TVLCT, [[0], [0], [0]], 1
 !P.FONT = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 8, YSIZE = 7, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/cut_intensity_plot.eps', /ENCAPSULATED
+DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/cut_intensity_plot.eps', /ENCAPSULATED
 
 TVLCT, [[255], [255], [255]], 2
 PLOT, psym = 3, vel_width[not_cut_ind], coeff_arr_peak[not_cut_ind], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], COLOR = 2, XTHICK = 4, YTHICK = 4, XCHARSIZE = 1.5, YCHARSIZE = 1.5, CHARSIZE = 1.5

@@ -80,7 +80,7 @@ byte_scale = BYTSCL(coeff_arr_clean[0,*,*], MIN = 5, MAX = 75, TOP = 254)
 ;byte_scale[UVB_ind] = 255
 byte_scale[UVB_ind_clean] = 255
 
-WINDOW, XSIZE = 1200, YSIZE = 600
+WINDOW, XSIZE = 900, YSIZE = 700
 
 EIS_COLORS, /INTENSITY
 
@@ -101,7 +101,7 @@ COLORBAR, FORMAT = '(F0.2)', TITLE = "Intensity [Arbitrary Units]", RANGE = [5,7
 
 ;save as png
 
-WINDOW, XSIZE = 1200, YSIZE = 600, RETAIN = 2
+WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
 
 EIS_COLORS, /INTENSITY
 
@@ -126,7 +126,7 @@ WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_UVB.png
 !P.FONT = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 10, YSIZE = 8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_UVB.eps', /ENCAPSULATED
+DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_UVB.eps', /ENCAPSULATED
 
 EIS_COLORS, /INTENSITY
 
