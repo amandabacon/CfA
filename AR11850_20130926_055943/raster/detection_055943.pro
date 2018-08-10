@@ -2,6 +2,7 @@
 ;Name: detection_055943.pro
 ;Written by: Amanda Bacon (amanda.bacon@cfa.harvard.edu)
 ;Date: 2018/07/21
+;EDITED: 2018/08/02 --aspr, eps appearance
 
 PRO detection_055943
 
@@ -221,7 +222,7 @@ TVLCT, [[0], [0], [0]], 1
 WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
 TVLCT, [[255], [255], [255]], 0
 
-PLOT, psym = 3, vel_width_055943, coeff_arr_055943[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_055943', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 0, XCHARSIZE = 1.5, YCHARSIZE = 1.5, XTHICK = 3, YTHICK = 3, CHARSIZE = 1.6
+PLOT, psym = 3, vel_width_055943, coeff_arr_055943[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_055943', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 0,  XTHICK = 4, YTHICK = 4, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.45, YCHARSIZE = 1.45
 screenshot = TVRD(TRUE = 1)
 WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/AR11850_20130926_055943/raster/intensity_plot_055943.png', screenshot
 
@@ -231,7 +232,7 @@ TVLCT, [[0], [0], [0]], 1
 WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
 TVLCT, [[255], [255], [255]], 0
 
-PLOT, psym = 3, vel_width_055943[not_cut_ind_055943], coeff_arr_peak_055943[not_cut_ind_055943], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_055943', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 0, XCHARSIZE = 1.5, YCHARSIZE = 1.5, XTHICK = 3, YTHICK = 3, CHARSIZE = 1.6
+PLOT, psym = 3, vel_width_055943[not_cut_ind_055943], coeff_arr_peak_055943[not_cut_ind_055943], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_055943', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 0, XTHICK = 4, YTHICK = 4, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.45, YCHARSIZE = 1.45
 TVLCT, [[255], [0], [0]], 255
 OPLOT, psym = 3, vel_width_055943[cut_ind_055943], coeff_arr_peak_055943[cut_ind_055943], COLOR = 255
 screenshot = TVRD(TRUE = 1)
@@ -242,9 +243,9 @@ WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/AR11850_20130926_055943/ra
 !P.FONT = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 0, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130926_055943/raster/intensity_plot_055943.eps', /ENCAPSULATED
+DEVICE, XSIZE = 15, YSIZE = 8.8, /INCHES, COLOR = 0, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130926_055943/raster/intensity_plot_055943.eps', /ENCAPSULATED
 
-PLOT, psym = 3, vel_width_055943, coeff_arr_055943[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_055943', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], XTHICK = 4, YTHICK = 4, XCHARSIZE = 1.5, YCHARSIZE = 1.5, CHARSIZE = 1.5
+PLOT, psym = 3, vel_width_055943, coeff_arr_055943[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_055943', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.35, YCHARSIZE = 1.4, YTHICK = 10, XTHICK = 10
 
 TVLCT, [[0], [0], [0]], 1
 !P.BACKGROUND = 1
@@ -252,10 +253,10 @@ TVLCT, [[0], [0], [0]], 1
 !P.FONT = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130926_055943/raster/cut_intensity_plot_055943.eps', /ENCAPSULATED
+DEVICE, XSIZE = 15, YSIZE = 8.8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130926_055943/raster/cut_intensity_plot_055943.eps', /ENCAPSULATED
 
 TVLCT, [[255], [255], [255]], 2
-PLOT, psym = 3, vel_width_055943[not_cut_ind_055943], coeff_arr_peak_055943[not_cut_ind_055943], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_055943', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 2, XTHICK = 4, YTHICK = 4, XCHARSIZE = 1.5, YCHARSIZE = 1.5, CHARSIZE = 1.5
+PLOT, psym = 3, vel_width_055943[not_cut_ind_055943], coeff_arr_peak_055943[not_cut_ind_055943], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_055943', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 2, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.35, YCHARSIZE = 1.4, YTHICK = 10, XTHICK = 10
 TVLCT, [[255], [0], [0]], 255
 OPLOT, psym = 3, vel_width_055943[cut_ind_055943], coeff_arr_peak_055943[cut_ind_055943], COLOR = 255
 

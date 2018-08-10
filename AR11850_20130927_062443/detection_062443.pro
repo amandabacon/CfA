@@ -2,6 +2,10 @@
 ;Name: detection_062443.pro
 ;Written by: Amanda Bacon (amanda.bacon@cfa.harvard.edu)
 ;Date: 2018/07/20
+;EDITED: 2018/08/05 --aspr, eps appearance
+;USING SI IV 1394 LINE, APPLY 4-PARAMTER SINGLE GAUSSIAN FIT (SGF) TO
+;EACH SPECTRA OVER 400 STEP RASTER TO MAKE A SCATTER PLOT OF PEAK
+;INTENSITY VS LINE WIDTH OF APPLY A CUT IN 4-D PARAMETER SPACE TO GET UVB POPULATION REGION
 
 PRO detection_062443
 
@@ -17,7 +21,7 @@ dataRast_062443 = IRIS_OBJ(IRast_062443)
 
 data1400_062443 = IRIS_SJI(SJI1400_062443)
 
-;load images/profiles
+;load images/profiles (WANT SI IV 1394)
 
 dataRast_062443->SHOW_LINES
 spectraRast1394_062443 = dataRast_062443->GETVAR(4, /LOAD)
@@ -148,7 +152,7 @@ FOR i = 0, n_img_062443-1 DO BEGIN
 		PLOT, lambda1394_062443[18:140], nspectraRast1394_062443[*,j,i], XRANGE = [1391.7, 1395.8], TITLE = 'AR11850_062443 Gaussian Fit', XTITLE = 'Wavelength', YTITLE = 'Intensity'
 		YFIT_062443 = MPFITPEAK(lambda1394_062443[18:140], nspectraRast1394_062443[*,j,i], coeff_062443, NTERMS = 4, STATUS = status, ERRMSG = errmsg)
 		OPLOT, lambda1394_062443[18:140], YFIT_062443, COLOR = 170, LINESTYLE = 2, THICK = 5
-;		WAIT, 0.05 ;chance to see fits
+		WAIT, 0.05 ;chance to see fits
 		coeff_arr_062443[*,i,j] = coeff_062443
 	ENDFOR
 ENDFOR
@@ -210,7 +214,7 @@ TVLCT, [[0], [0], [0]], 1
 WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
 TVLCT, [[255], [255], [255]], 0
 
-PLOT, psym = 3, vel_width_062443, coeff_arr_062443[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_062443', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 0, XCHARSIZE = 1.5, YCHARSIZE = 1.5, XTHICK = 3, YTHICK = 3, CHARSIZE = 1.6
+PLOT, psym = 3, vel_width_062443, coeff_arr_062443[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_062443', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 0, XTHICK = 4, YTHICK = 4, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.45, YCHARSIZE = 1.45
 screenshot = TVRD(TRUE = 1)
 WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/AR11850_20130927_062443/intensity_plot_062443.png', screenshot
 
@@ -220,7 +224,7 @@ TVLCT, [[0], [0], [0]], 1
 WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
 TVLCT, [[255], [255], [255]], 0
 
-PLOT, psym = 3, vel_width_062443[not_cut_ind_062443], coeff_arr_peak_062443[not_cut_ind_062443], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_062443', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 0, XCHARSIZE = 1.5, YCHARSIZE = 1.5, XTHICK = 3, YTHICK = 3, CHARSIZE = 1.6
+PLOT, psym = 3, vel_width_062443[not_cut_ind_062443], coeff_arr_peak_062443[not_cut_ind_062443], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_062443', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 0, XTHICK = 4, YTHICK = 4, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.45, YCHARSIZE = 1.45
 TVLCT, [[255], [0], [0]], 255
 OPLOT, psym = 3, vel_width_062443[cut_ind_062443], coeff_arr_peak_062443[cut_ind_062443], COLOR = 255
 screenshot = TVRD(TRUE = 1)
@@ -231,9 +235,9 @@ WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/AR11850_20130927_062443/cu
 !P.FONT = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 0, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130927_062443/intensity_plot_062443.eps', /ENCAPSULATED
+DEVICE, XSIZE = 15, YSIZE = 8.8, /INCHES, COLOR = 0, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130927_062443/intensity_plot_062443.eps', /ENCAPSULATED
 
-PLOT, psym = 3, vel_width_062443, coeff_arr_062443[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_062443', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], XTHICK = 4, YTHICK = 4, XCHARSIZE = 1.5, YCHARSIZE = 1.5, CHARSIZE = 1.5
+PLOT, psym = 3, vel_width_062443, coeff_arr_062443[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_062443', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.35, YCHARSIZE = 1.4, YTHICK = 10, XTHICK = 10
 
 TVLCT, [[0], [0], [0]], 1
 !P.BACKGROUND = 1
@@ -241,10 +245,10 @@ TVLCT, [[0], [0], [0]], 1
 !P.FONT = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130927_062443/cut_intensity_plot_062443.eps', /ENCAPSULATED
+DEVICE, XSIZE = 15, YSIZE = 8.8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130927_062443/cut_intensity_plot_062443.eps', /ENCAPSULATED
 
 TVLCT, [[255], [255], [255]], 2
-PLOT, psym = 3, vel_width_062443[not_cut_ind_062443], coeff_arr_peak_062443[not_cut_ind_062443], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_062443', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 2, XTHICK = 4, YTHICK = 4, XCHARSIZE = 1.5, YCHARSIZE = 1.5, CHARSIZE = 1.5
+PLOT, psym = 3, vel_width_062443[not_cut_ind_062443], coeff_arr_peak_062443[not_cut_ind_062443], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width AR11850_062443', /XLOG, /YLOG, XRANGE = [10e-3,10e6], POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 2, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.35, YCHARSIZE = 1.4, YTHICK = 10, XTHICK = 10
 TVLCT, [[255], [0], [0]], 255
 OPLOT, psym = 3, vel_width_062443[cut_ind_062443], coeff_arr_peak_062443[cut_ind_062443], COLOR = 255
 

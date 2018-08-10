@@ -2,8 +2,14 @@
 ;Name: Oiv_isolate_055943.pro
 ;Written by: Amanda Bacon (amanda.bacon@cfa.harvard.edu)
 ;Date: 2018/07/23
+;USING THE O IV LINE AND THE UVB INDICES AFTER MANUALLY INSPECTING
+;SPECTRA FOR NI II ABSORPTION, APPLY TWO ROUNDS OF SGFs TO O IV LINE
+;TO GET 4 PARAMETERS, INSTRUMENTAL UNCERTAINTIES, POISSON NOISE, TIIs,
+;SNRs, THEN CREATE A HISTOGRAM OF SNR VALUE FREQUENCY.
 
 PRO Oiv_isolate_055943
+
+;restore Si IV UVB indices and other variables
 
 rfname = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130926_055943/raster/iso_vars_055943.sav'
 RESTORE, rfname
@@ -20,7 +26,7 @@ dataRast_055943_Oiv = IRIS_OBJ(IRast_055943_Oiv)
 
 data1400_055943_Oiv = IRIS_SJI(SJI1400_055943_Oiv)
 
-;load images/profiles
+;load images/profiles (WANT Si IV 1403 THIS TIME)
 
 dataRast_055943_Oiv->SHOW_LINES
 spectraRast1403_055943_Oiv = dataRast_055943_Oiv->GETVAR(5, /LOAD)
@@ -71,7 +77,8 @@ n_img1403_055943_Oiv = N_ELEMENTS(spectraRast1403_055943_Oiv[0,0,*]) ;400 images
 n_wav1403_055943_Oiv = N_ELEMENTS(spectraRast1403_055943_Oiv[*,0,0]) ;274 wavelengths b/w 1399-1405
 n_ypos1403_055943_Oiv = N_ELEMENTS(spectraRast1403_055943_Oiv[0,*,0]) ;1096 y-positions
 
-;remove overscan by making a tilt and applying a cut, then make a new array
+;remove overscan by making a tilt and applying a cut, then make a new
+;array (cut to include only O IV line)
 
 cut_055943_Oiv = MEAN(MEAN(spectraRast1403_055943_Oiv, DIMENSION = 2), DIMENSION = 2) ;SIZE: 1D, 274, float
 
@@ -180,66 +187,90 @@ SAVE, coeff_055943_Oiv, spectraRast1403_055943_Oiv, nspectraRast1403_055943_Oiv,
 rfname2 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_055943/raster/coeff_arr_055943_Oiv.sav'
 RESTORE, rfname2
 
+;calculate instrumental uncertainties to use in another SGF FOR loop
+
 R = (1.75)^2 ;counts/pxl
 g = 7.2 ;photons/count
 dt = 2.0
-inst_unc = [ABS((REFORM(nspectraRast1403_055943_Oiv[*,UVB_ind_y_055943_Oiv,UVB_ind_r_055943_Oiv]))/(g*dt))+R]^0.5
-;PRINT, inst_unc
+inst_unc_O_055943 = [ABS((REFORM(nspectraRast1403_055943_Oiv[*,UVB_ind_y_055943_Oiv,UVB_ind_r_055943_Oiv]))/(g*dt))+R]^0.5
+;PRINT, inst_unc_O_055943
 ;PRINT, exp_arrRast_055943_Oiv ;six 0
 
 coeff_arr_055943_Oiv2 = DBLARR(4,UVB_size_055943_Oiv)
 sigma_coeff_arr = DBLARR(4,UVB_size_055943_Oiv)
 
-PRINT, SIZE(inst_unc)
+PRINT, SIZE(inst_unc_O_055943)
 
 TIC
 FOR i = 0, UVB_size_055943_Oiv-1 DO BEGIN
 	PLOT, lambda1403_055943_Oiv[19:105], REFORM(nspectraRast1403_055943_Oiv[*,UVB_ind_y_055943_Oiv[i],UVB_ind_r_055943_Oiv[i]]), XRANGE = [1399.3, 1405.8], TITLE = 'AR11850_055943_Oiv Gaussian Fit', XTITLE = 'Wavelength', YTITLE = 'Intensity'
-	YFIT_055943_Oiv2 = MPFITPEAK(lambda1403_055943_Oiv[19:105], REFORM(nspectraRast1403_055943_Oiv[*,UVB_ind_y_055943_Oiv[i],UVB_ind_r_055943_Oiv[i]]), coeff_055943_Oiv2, NTERMS = 4, PERROR = sigma_coeff, ERROR = inst_unc[*,i,i], ESTIMATES = [5.0,1401.163,0.1,0.0])
+	YFIT_055943_Oiv2 = MPFITPEAK(lambda1403_055943_Oiv[19:105], REFORM(nspectraRast1403_055943_Oiv[*,UVB_ind_y_055943_Oiv[i],UVB_ind_r_055943_Oiv[i]]), coeff_055943_Oiv2, NTERMS = 4, PERROR = sigma_coeff, ERROR = inst_unc_O_055943[*,i,i], ESTIMATES = [5.0,1401.163,0.1,0.0])
         OPLOT, lambda1403_055943_Oiv[19:105], REFORM(YFIT_055943_Oiv2), COLOR = 170, LINESTYLE = 2, THICK = 5
 	coeff_arr_055943_Oiv2[*,i] = coeff_055943_Oiv2
 	sigma_coeff_arr[*,i] = sigma_coeff 
 ENDFOR
 TOC ;Time elapsed: ~2.3 sec
 
-;PRINT, coeff_arr_055943_Oiv2
-;PRINT, sigma_coeff_arr
+;remove any erroneous fits to Si IV 1403 line
 
-p_int = coeff_arr_055943_Oiv2[0,*,*]
-sig_lw = sigma_coeff_arr[2,*,*]
-lw = coeff_arr_055943_Oiv2[2,*,*]
-sig_p_int = sigma_coeff_arr[0,*,*]
+PRINT, SIZE(coeff_arr_055943_Oiv2)
 
-It = (sqrt(2.0*!dpi)*p_int*lw)    ;total integrated intensity
+one = coeff_arr_055943_Oiv2[1,*,*]
+coeff_arr_055943_Oiv2_clean = WHERE((one GT 1400.6) AND (one LT 1401.6), count, COMPLEMENT = non)
+
+PRINT, SIZE(coeff_arr_055943_Oiv2_clean)
+
+zero = coeff_arr_055943_Oiv2[0,*,*]
+sig2 = sigma_coeff_arr[2,*,*]
+two = coeff_arr_055943_Oiv2[2,*,*]
+sig0 = sigma_coeff_arr[0,*,*]
+
+p_int = zero[coeff_arr_055943_Oiv2_clean]
+sig_lw = sig2[coeff_arr_055943_Oiv2_clean]
+lw = two[coeff_arr_055943_Oiv2_clean]
+sig_p_int = sig0[coeff_arr_055943_Oiv2_clean]
+
+;calculate total integrated intensity (TII)
+
+It_O_055943 = (sqrt(2.0*!dpi)*p_int*lw) ;total integrated intensity
 
 PRINT, 'integrated intensity uncertainty'
 
-int_int_unc = [2.0*!dpi*((p_int)^2*(sig_lw)^2+(lw)^2*(sig_p_int)^2)]^0.5
-PRINT, int_int_unc
+;calculate integrated intensity uncertainty
+
+int_int_unc_O_055943 = [2.0*!dpi*((p_int)^2*(sig_lw)^2+(lw)^2*(sig_p_int)^2)]^0.5
+PRINT, int_int_unc_O_055943
 
 PRINT, 'SNR by dividing total integrated intensity by uncertainty'
 
-SNR_0 = It/int_int_unc
-PRINT, SNR_0
+;calculate SNR
+
+SNR_0_O_055943 = It_O_055943/int_int_unc_O_055943
+PRINT, SNR_0_O_055943
 
 PRINT, 'SNR rearrangement'
 
+;calculate SNR after rearrangement
+
 neg = -0.5
-SNR = (((sig_p_int)^2/(p_int)^2)+((sig_lw)^2/(lw)^2))^neg
-PRINT, SNR
+SNR_O_055943 = (((sig_p_int)^2/(p_int)^2)+((sig_lw)^2/(lw)^2))^neg
+PRINT, SNR_O_055943
 
-PRINT, SIZE(SNR)
-SNR2 = WHERE((SNR LT 20), count) ;remove infinity
-PRINT, SIZE(SNR[SNR2])
+PRINT, SIZE(SNR_O_055943) ;199
+SNR2_O_055943 = WHERE((SNR_O_055943 LT 20), count) ;remove infinity
+PRINT, SIZE(SNR_O_055943[SNR2_O_055943]) ;198
 
-PLOT, HISTOGRAM(SNR[SNR2], BINSIZE = 0.5), PSYM = 10, XTITLE = "Signal-to-Noise", YTITLE = "Frequency", TITLE = "Histogram of Signal-to-Noise of AR11850_20130926_055943"
-OPLOT, HISTOGRAM(SNR[SNR2], BINSIZE = 0.5), COLOR = 150
+;make histogram of SNRs and frequencies at which they occur
+
+SNR_hist = HISTOGRAM(SNR_O_055943[SNR2_O_055943], BINSIZE = 0.5, LOCATION = x_hist)
+PLOT, x_hist, SNR_hist, PSYM = 10, XTITLE = "Signal-to-Noise", YTITLE = "Frequency", TITLE = "Histogram of Signal-to-Noise of AR11850_20130926_055943"
+OPLOT, HISTOGRAM(SNR_O_055943[SNR2_O_055943], BINSIZE = 0.5), COLOR = 150
 
 ;save as png
 
 WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
-PLOT, HISTOGRAM(SNR[SNR2], BINSIZE = 0.5), PSYM = 10, XTITLE = "Signal-to-Noise", YTITLE = "Frequency", TITLE = "Histogram of Signal-to-Noise of AR11850_20130926_055943"
-OPLOT, HISTOGRAM(SNR[SNR2], BINSIZE = 0.5), COLOR = 150
+SNR_hist = HISTOGRAM(SNR_O_055943[SNR2_O_055943], BINSIZE = 0.5, LOCATION = x_hist)
+PLOT, x_hist, SNR_hist, PSYM = 10, XTITLE = "Signal-to-Noise", YTITLE = "Frequency", TITLE = "Histogram of Signal-to-Noise of AR11850_20130926_055943", XTHICK = 4, YTHICK = 4, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.45, YCHARSIZE = 1.45
 screenshot = TVRD(TRUE = 1)
 WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_055943/raster/histogram_055943.png', screenshot
 
@@ -248,25 +279,27 @@ WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_0559
 !P.FONT = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_055943/raster/histogram_055943.eps', /ENCAPSULATED
+DEVICE, XSIZE = 15, YSIZE = 8.8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_055943/raster/histogram_055943.eps', /ENCAPSULATED
 
-PLOT, HISTOGRAM(SNR[SNR2], BINSIZE = 0.5), PSYM = 10, XTITLE = "Signal-to-Noise", YTITLE = "Frequency", TITLE = "Histogram of Signal-to-Noise of AR11850_20130926_055943"
-OPLOT, HISTOGRAM(SNR[SNR2], BINSIZE = 0.5), COLOR = 150
+SNR_hist = HISTOGRAM(SNR_O_055943[SNR2_O_055943], BINSIZE = 0.5, LOCATION = x_hist)
+PLOT, x_hist, SNR_hist, PSYM = 10, XTITLE = "Signal-to-Noise", YTITLE = "Frequency", TITLE = "Histogram of Signal-to-Noise of AR11850_20130926_055943", XTHICK = 10, YTHICK = 10, XCHARSIZE = 1.5, YCHARSIZE = 1.5, CHARSIZE = 1.5, THICK = 4
 
 DEVICE, /CLOSE
 
-PRINT, 'MIN: ', MIN(SNR[SNR2])
-PRINT, 'MAX: ', MAX(SNR[SNR2])
-PRINT, 'MODE: ', WHERE(SNR[SNR2] EQ MAX(SNR[SNR2]), count) + MIN(SNR[SNR2])
-PRINT, 'MEDIAN: ', MEDIAN(SNR[SNR2])
+;other useful information from the SNR calculations
 
-MOM = MOMENT(SNR[SNR2])
+PRINT, 'MIN: ', MIN(SNR_O_055943[SNR2_O_055943])
+PRINT, 'MAX: ', MAX(SNR_O_055943[SNR2_O_055943])
+PRINT, 'MODE: ', WHERE(SNR_O_055943[SNR2_O_055943] EQ MAX(SNR_O_055943[SNR2_O_055943]), count) + MIN(SNR_O_055943[SNR2_O_055943])
+PRINT, 'MEDIAN: ', MEDIAN(SNR_O_055943[SNR2_O_055943])
+
+MOM = MOMENT(SNR_O_055943[SNR2_O_055943])
 PRINT, 'MEAN: ', MOM[0] & PRINT, 'VARIANCE: ', MOM[1] & PRINT, 'SKEWNESS: ', MOM[2] & PRINT, 'KURTOSIS: ', MOM[3]
 
 ;save parameters from FOR loop
 
 sfname2 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_055943/raster/sigma_coeff_arr_055943_Oiv.sav'
-SAVE, coeff_055943_Oiv2, inst_unc, sigma_coeff, sigma_coeff_arr, coeff_arr_055943_Oiv2, It, int_int_unc, SNR_0, SNR, FILENAME = sfname2
+SAVE, coeff_055943_Oiv2, inst_unc_O_055943, sigma_coeff, sigma_coeff_arr, coeff_arr_055943_Oiv2, It_O_055943, int_int_unc_O_055943, SNR_0_O_055943, SNR_O_055943, SNR2_O_055943, FILENAME = sfname2
 
 OBJ_DESTROY, dataRast_055943_Oiv
 OBJ_DESTROY, data1400_055943_Oiv

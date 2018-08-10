@@ -3,6 +3,10 @@
 ;Written by: Amanda Bacon (amanda.bacon@cfa.harvard.edu)
 ;Date: 2018/06/20
 ;EDITED: 2018/07/12 --plot aspr, eps appearance
+;EDITED: 2018/08/02 --plots aspr, eps appearance
+;USING SI IV 1394 LINE, APPLY 4-PARAMTER SINGLE GAUSSIAN FIT (SGF) TO
+;EACH SPECTRA OVER 400 STEP RASTER TO MAKE A SCATTER PLOT OF PEAK
+;INTENSITY VS LINE WIDTH OF APPLY A CUT IN 4-D PARAMETER SPACE TO GET UVB POPULATION REGION
 
 PRO siiv
 
@@ -18,7 +22,7 @@ dataRast = IRIS_OBJ(IRast)
 
 data1400 = IRIS_SJI(SJI1400)
 
-;load images/profiles
+;load images/profiles (WANT SI IV 1394)
 
 dataRast->SHOW_LINES
 spectraRast1394 = dataRast->GETVAR(4, /LOAD)
@@ -203,7 +207,7 @@ cut_ind = WHERE((coeff_arr_peak GE 7) AND (vel_width GE 53) AND (vel_width LE 10
 
 ;PRINT, N_ELEMENTS(cut_ind)
 
-WINDOW, XSIZE = 900, YSIZE = 500
+WINDOW, XSIZE = 900, YSIZE = 700
 TVLCT, [[0], [0], [0]], 1
 !P.BACKGROUND = 1
 
@@ -226,7 +230,7 @@ TVLCT, [[0], [0], [0]], 1
 
 WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
 TVLCT, [[255], [255], [255]], 0
-PLOT, psym = 3, vel_width, coeff_arr[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], COLOR = 0, POSITION = [x0,y0,x0+dx,y0+dy], XCHARSIZE = 1.5, YCHARSIZE = 1.5, XTHICK = 3, YTHICK = 3, CHARSIZE = 1.6
+PLOT, psym = 3, vel_width, coeff_arr[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], COLOR = 0, POSITION = [x0,y0,x0+dx,y0+dy], XTHICK = 4, YTHICK = 4, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.45, YCHARSIZE = 1.45
 screenshot = TVRD(TRUE = 1)
 WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_plot.png', screenshot
 
@@ -235,7 +239,7 @@ TVLCT, [[0], [0], [0]], 1
 
 WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
 TVLCT, [[255], [255], [255]], 0
-PLOT, psym = 3, vel_width[not_cut_ind], coeff_arr_peak[not_cut_ind], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], COLOR = 0, POSITION = [x0,y0,x0+dx,y0+dy], XCHARSIZE = 1.5, YCHARSIZE = 1.5, XTHICK = 3, YTHICK = 3, CHARSIZE = 1.6
+PLOT, psym = 3, vel_width[not_cut_ind], coeff_arr_peak[not_cut_ind], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], COLOR = 0, POSITION = [x0,y0,x0+dx,y0+dy], XTHICK = 4, YTHICK = 4, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.45, YCHARSIZE = 1.45
 TVLCT, [[255], [0], [0]], 255
 OPLOT, psym = 3, vel_width[cut_ind], coeff_arr_peak[cut_ind], COLOR = 255
 screenshot = TVRD(TRUE = 1)
@@ -249,9 +253,9 @@ WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/1394_SGF/cut_intensity_plo
 ;!P.BACKGROUND = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 0, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_plot.eps', /ENCAPSULATED
+DEVICE, XSIZE = 15, YSIZE = 8.8, /INCHES, COLOR = 0, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/intensity_plot.eps', /ENCAPSULATED
 
-PLOT, psym = 3, vel_width, coeff_arr[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], XTHICK = 4, YTHICK = 4, XCHARSIZE = 1.5, YCHARSIZE = 1.5, CHARSIZE = 1.5
+PLOT, psym = 3, vel_width, coeff_arr[0,*,*], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.35, YCHARSIZE = 1.4, YTHICK = 10, XTHICK = 10
 
 TVLCT, [[0], [0], [0]], 1
 !P.BACKGROUND = 1
@@ -259,10 +263,10 @@ TVLCT, [[0], [0], [0]], 1
 !P.FONT = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/cut_intensity_plot.eps', /ENCAPSULATED
+DEVICE, XSIZE = 15, YSIZE = 8.8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/cut_intensity_plot.eps', /ENCAPSULATED
 
 TVLCT, [[255], [255], [255]], 2
-PLOT, psym = 3, vel_width[not_cut_ind], coeff_arr_peak[not_cut_ind], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], COLOR = 2, XTHICK = 4, YTHICK = 4, XCHARSIZE = 1.5, YCHARSIZE = 1.5, CHARSIZE = 1.5
+PLOT, psym = 3, vel_width[not_cut_ind], coeff_arr_peak[not_cut_ind], XTITLE = 'Line Width [km*s^-1]', YTITLE = 'Peak Instensity [Arb. Units]', TITLE = 'Scatter Plot of Intensity vs Width', /XLOG, /YLOG, XRANGE = [10e-2,10e6], COLOR = 2, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.35, YCHARSIZE = 1.4, YTHICK = 10, XTHICK = 10
 TVLCT, [[255], [0], [0]], 255
 OPLOT, psym = 3, vel_width[cut_ind], coeff_arr_peak[cut_ind], COLOR = 255
 

@@ -2,6 +2,12 @@
 ;Name: isolate.pro
 ;Written by: Amanda Bacon (amanda.bacon@cfa.harvard.edu)
 ;Date: 2018/07/05
+;EDITED: 2018/08/02 --aspr and eps appearance
+;USING INDICES FROM CUT IN 4-D PARAMETER SPACE TO GET UVB POPULATION
+;REGION, MANUALLY ITERATE THROUGH SPECTRA LOOKING FOR SIGNS OF NI II
+;ABSORPTION TO USE FOR ANALYSIS PART OF PROJECT.
+;THIS IS MY FIRST ATTEMPT AT MANUALLY INSPECTED AND CHARACTERIZING
+;UVBs. THERE ARE SOME SPECTRA THAT HAVE NO NI II ABSORPTION.
 
 PRO isolate
 
@@ -47,6 +53,8 @@ FOR i = 0, cut_size-1 DO BEGIN
 ENDFOR
 TOC
 
+;===============================================================================
+
 ;for mini_pres--extreme constraints
 
 cut_ind = WHERE((coeff_arr_peak GE 40) AND (coeff_arr_peak LE 350) AND (vel_width GE 73) AND (vel_width LE 200) AND (ABS(velocity LE (gamma/wave0) * 3e5)), COMPLEMENT = not_cut_ind, count)
@@ -64,31 +72,31 @@ this_cut_y = REFORM(this_cut[1,*])
 prof = REFORM(nspectraRast1394[*,this_cut_y[414],this_cut_r[414]])
 
 WINDOW, XSIZE = 900, YSIZE = 700
-PLOT, lambda1394[18:141], prof, XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395.3], POSITION = [x0,y0,x0+dx,y0+dy], XCHARSIZE = 1.8, YCHARSIZE = 1.8, XTHICK = 3, YTHICK = 3, XSTYLE = 1, THICK = 2
+PLOT, lambda1394[18:141], prof, XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395.3], POSITION = [x0,y0,x0+dx,y0+dy], XTHICK = 4, YTHICK = 4, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.45, YCHARSIZE = 1.45
 
-XYOUTS, 1392.9, 233, 'Fe II', CHARSIZE = 1.4
-XYOUTS, 1393.4, 233, 'Ni II', CHARSIZE = 1.4
-XYOUTS, 1393.76, 233, 'Si IV', CHARSIZE = 1.4
+XYOUTS, 1392.5, 233, 'Fe II', CHARSIZE = 1.8
+XYOUTS, 1393.05, 233, 'Ni II', CHARSIZE = 1.8
+XYOUTS, 1393.50, 233, 'Si IV', CHARSIZE = 1.8
 
 ANNOTATE, LOAD_FILE = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/annotate.dat'
 
 TVLCT, [[255], [0], [0]], 255
-OPLOT, lambda1394[18:141], n_avg_prof, COLOR = 255, THICK = 2
+OPLOT, lambda1394[18:141], n_avg_prof, COLOR = 255, THICK = 4
 
 ;save as png
 
 TVLCT, [[255], [255], [255]], 2
 WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
-PLOT, lambda1394[18:141], prof, XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395.3], POSITION = [x0,y0,x0+dx,y0+dy], XCHARSIZE = 1.8, YCHARSIZE = 1.8, XTHICK = 3, YTHICK = 3, XSTYLE = 1, THICK = 2, COLOR = 2
+PLOT, lambda1394[18:141], prof, XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395.3], POSITION = [x0,y0,x0+dx,y0+dy], XTHICK = 4, YTHICK = 4, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.45, YCHARSIZE = 1.45, COLOR = 2
 
-XYOUTS, 1392.9, 233, 'Fe II', CHARSIZE = 1.4, COLOR = 2
-XYOUTS, 1393.4, 233, 'Ni II', CHARSIZE = 1.4, COLOR = 2
-XYOUTS, 1393.76, 233, 'Si IV', CHARSIZE = 1.4, COLOR = 2
+XYOUTS, 1392.5, 233, 'Fe II', CHARSIZE = 1.8, COLOR = 2
+XYOUTS, 1393.05, 233, 'Ni II', CHARSIZE = 1.8, COLOR = 2
+XYOUTS, 1393.50, 233, 'Si IV', CHARSIZE = 1.8, COLOR = 2
 
-ANNOTATE, LOAD_FILE = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/annotate_png.dat'
+ANNOTATE, LOAD_FILE = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/annotate.dat'
 
 TVLCT, [[255], [0], [0]], 255
-OPLOT, lambda1394[18:141], n_avg_prof, COLOR = 255, THICK = 2
+OPLOT, lambda1394[18:141], n_avg_prof, COLOR = 255, THICK = 4
 
 screenshot = TVRD(TRUE = 1)
 WRITE_PNG, '/data/khnum/REU2018/abacon/data/detection/1394_SGF/funky.png', screenshot
@@ -101,19 +109,21 @@ TVLCT, [[0], [0], [0]], 1
 !P.BACKGROUND = 1
 
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 8, YSIZE = 8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/funky.eps', /ENCAPSULATED
+DEVICE, XSIZE = 15, YSIZE = 8.8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/funky.eps', /ENCAPSULATED
 
 TVLCT, [[255], [255], [255]], 2
-PLOT, lambda1394[18:141], prof, XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395.3], POSITION = [x0,y0,x0+dx,y0+dy], XCHARSIZE = 1.9, YCHARSIZE = 1.9, XSTYLE = 1, THICK = 4, COLOR = 2
+PLOT, lambda1394[18:141], prof, XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395.3], POSITION = [x0,y0,x0+dx,y0+dy], XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.35, YCHARSIZE = 1.4, COLOR = 2, XTHICK = 10, YTHICK = 10
 
-XYOUTS, 1392.9, 233, 'Fe II', CHARSIZE = 1.5, COLOR = 2
-XYOUTS, 1393.4, 233, 'Ni II', CHARSIZE = 1.5, COLOR = 2
-XYOUTS, 1393.76, 233, 'Si IV', CHARSIZE = 1.5, COLOR = 2
+XYOUTS, 1392.5, 233, 'Fe II', CHARSIZE = 1.8, COLOR = 2
+XYOUTS, 1393.05, 233, 'Ni II', CHARSIZE = 1.8, COLOR = 2
+XYOUTS, 1393.50, 233, 'Si IV', CHARSIZE = 1.8, COLOR = 2
 
 TVLCT, [[255], [0], [0]], 255
 OPLOT, lambda1394[18:141], n_avg_prof, COLOR = 255, THICK = 4
 
 DEVICE, /CLOSE
+
+;===============================================================================
 
 ;save new params
 
