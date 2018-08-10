@@ -197,9 +197,13 @@ sort_c_114443 = coeff_arr_114443[SORT(coeff_arr_114443)]
 sort_c_114443 = sort_c_114443[WHERE(FINITE(sort_c_114443) OR (sort_c_114443 NE -200))]
 n_sort_c_114443 = N_ELEMENTS(sort_c_114443)
 
+;despike
+
+coeff_arr_114443_clean = IRIS_PREP_DESPIKE(REFORM(coeff_arr_114443[0,*,*]), niter = 1000, min_std = 2.8, sigmas = 2.5, mode = 'both')
+
 ;BYTSCL() TO SHOW UVB OVERPLOT IN RED
 
-byte_scale_114443 = BYTSCL(coeff_arr_114443[0,*,*], MIN = 5, MAX = 75, TOP = 254)
+byte_scale_114443 = BYTSCL(coeff_arr_114443_clean, MIN = 5, MAX = 75, TOP = 254)
 
 ;PRINT, SIZE(byte_scale_114443[UVB_ind_114443]) ;1D 657
 

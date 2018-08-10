@@ -132,9 +132,13 @@ sort_c_063943 = coeff_arr_063943[SORT(coeff_arr_063943)]
 sort_c_063943 = sort_c_063943[WHERE(FINITE(sort_c_063943) OR (sort_c_063943 NE -200))]
 n_sort_c_063943 = N_ELEMENTS(sort_c_063943)
 
+;despike
+
+coeff_arr_063943_clean = IRIS_PREP_DESPIKE(REFORM(coeff_arr_063943[0,*,*]), niter = 1000, min_std = 2.8, sigmas = 2.5, mode = 'both')
+
 ;BYTSCL() TO SHOW UVB OVERPLOT IN RED
 
-byte_scale_063943 = BYTSCL(coeff_arr_063943[0,*,*], MIN = 5, MAX = 75, TOP = 254)
+byte_scale_063943 = BYTSCL(coeff_arr_063943_clean, MIN = 5, MAX = 75, TOP = 254)
 
 ;PRINT, SIZE(byte_scale_063943[UVB_ind_063943]) ;1D 362
 

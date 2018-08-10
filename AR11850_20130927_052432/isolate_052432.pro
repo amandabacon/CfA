@@ -133,9 +133,14 @@ sort_c_052432 = coeff_arr_052432[SORT(coeff_arr_052432)]
 sort_c_052432 = sort_c_052432[WHERE(FINITE(sort_c_052432) OR (sort_c_052432 NE -200))]
 n_sort_c_052432 = N_ELEMENTS(sort_c_052432)
 
+;restore Chad despiked coeff
+
+rfname_cleaned = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130927_052432/param_maps/coeff_arr_clean_052432.sav'
+RESTORE, rfname_cleaned, /VERBOSE
+
 ;BYTSCL() TO SHOW UVB OVERPLOT IN RED
 
-byte_scale_052432 = BYTSCL(coeff_arr_052432[0,*,*], MIN = 5, MAX = 75, TOP = 254)
+byte_scale_052432 = BYTSCL(coeff_arr_clean[0,*,*], MIN = 5, MAX = 75, TOP = 254)
 
 ;PRINT, SIZE(byte_scale_052432[UVB_ind_052432]) ;1D 378
 
