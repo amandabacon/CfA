@@ -225,6 +225,12 @@ TOC ;Time elapsed: ~9.0 sec
 
 ;remove any erroneous fits to Si IV 1403 line
 
+;get UVB indices for O IV
+
+UVB_ind_Oiv_114443 = UVB_ind_114443[coeff_arr_114443_Oiv2_clean]
+PRINT, UVB_ind_Oiv_114443
+PRINT, N_ELEMENTS(UVB_ind_Oiv_114443) ;621
+
 PRINT, SIZE(coeff_arr_114443_Oiv2)
 
 one = coeff_arr_114443_Oiv2[1,*,*]
@@ -311,7 +317,7 @@ PRINT, 'MEAN: ', MOM[0] & PRINT, 'VARIANCE: ', MOM[1] & PRINT, 'SKEWNESS: ', MOM
 ;save parameters from FOR loop
 
 sfname2 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130924_114443/sigma_coeff_arr_114443_Oiv.sav'
-SAVE, coeff_114443_Oiv2, inst_unc_O_114443, sigma_coeff, sigma_coeff_arr, coeff_arr_114443_Oiv2, It_O_114443, int_int_unc_O_114443, SNR_0_O_114443, SNR_O_114443, SNR2_O_114443, FILENAME = sfname2
+SAVE, UVB_ind_Oiv_114443, coeff_114443_Oiv2, inst_unc_O_114443, sigma_coeff, sigma_coeff_arr, coeff_arr_114443_Oiv2, It_O_114443, int_int_unc_O_114443, SNR_0_O_114443, SNR_O_114443, SNR2_O_114443, FILENAME = sfname2
 
 OBJ_DESTROY, dataRast_114443_Oiv
 OBJ_DESTROY, data1400_114443_Oiv
