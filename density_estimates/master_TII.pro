@@ -13,182 +13,217 @@ PRO master_TII
 
 ;restore O IV 114443 TIIs, SNRs, etc.
 
+rfname_114443 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130924_114443/iso_vars_114443.sav'
+RESTORE, rfname_114443
+
 rfname_SNR = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130924_114443/sigma_coeff_arr_114443_Oiv.sav'
 RESTORE, rfname_SNR
 
-PRINT, SIZE(SNR_O_114443[SNR2_O_114443])
 one = SNR_O_114443[SNR2_O_114443]
 
-t_O_114443 = SNR_O_114443[SNR2_O_114443]
-num_three = WHERE((t_O_114443 GT 3.0), count) ;157
+num_three = WHERE((SNR_O_114443 GE 3.0) AND FINITE(SNR_O_114443), count) ;remove both the nonfinite SNRs and SNRs < 3 in one shot
+PRINT, SIZE(num_three) ;157
+PRINT, 'SNR_O_114443[num_three]'
+PRINT, SNR_O_114443[num_three]
 
-O_114443_a = It_O_114443[SNR2_O_114443]
-O_114443 = O_114443_a[num_three]
+O_114443 = It_O_114443[num_three]
+PRINT, 'O_114443'
+PRINT, O_114443
 
 ;restore O IV 153943 TIIs, SNRs, etc.
+
+rfname2_153943 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130924_153943/iso_vars_153943.sav'
+RESTORE, rfname2_153943
 
 rfname2_SNR = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130924_153943/sigma_coeff_arr_153943_Oiv.sav'
 RESTORE, rfname2_SNR
 
-PRINT, SIZE(SNR_O_153943[SNR2_O_153943])
 two = SNR_O_153943[SNR2_O_153943]
 
-t_O_153943 = SNR_O_153943[SNR2_O_153943]
-num2_three = WHERE((t_O_153943 GT 3.0), count) ;117
+num2_three = WHERE((SNR_O_153943 GE 3.0) AND FINITE(SNR_O_153943), count)
+PRINT, SIZE(num2_three) ;117
+PRINT, 'SNR_O_153943[num2_three]'
+PRINT, SNR_O_153943[num2_three]
 
-num2_three = WHERE((SNR_O_153943[SNR2_O_153943] GT 3.0), count) ;117
-
-O_153943_a = It_O_153943[SNR2_O_153943]
-O_153943 = O_153943_a[num2_three]
+O_153943 = It_O_153943[num2_three]
+PRINT, 'O_153943'
+PRINT, O_153943
 
 ;restore O IV 050945 TIIs, SNRs, etc.
+
+rfname3_050945 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130924_050945/iso_vars_safe_clean.sav'
+RESTORE, rfname3_050945
 
 rfname3_SNR = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130924_050945/sigma_coeff_arr_050945_Oiv.sav'
 RESTORE, rfname3_SNR
 
-PRINT, SIZE(SNR_O_050945[SNR2_O_050945])
 three = SNR_O_050945[SNR2_O_050945]
 
-t = SNR_O_050945[SNR2_O_050945]
-num3_three = WHERE((t GT 3.0), count) ;103
+num3_three = WHERE((SNR_O_050945 GE 3.0) AND FINITE(SNR_O_050945), count)
+PRINT, SIZE(num3_three) ;103
+PRINT, 'SNR_O_050945[num3_three]'
+PRINT, SNR_O_050945[num3_three]
 
-num3_three = WHERE((SNR_O_050945[SNR2_O_050945] GT 3.0), count) ;103
-
-O_050945_a = It_O_050945[SNR2_O_050945]
-O_050945 = O_050945_a[num3_three]
+O_050945 = It_O_050945[num3_three]
+PRINT, 'O_050945'
+PRINT, O_050945
 
 ;restore O IV 063943 TIIs, SNRs, etc.
+
+rfname4_063943 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130925_063943/iso_vars_063943.sav'
+RESTORE, rfname4_063943
 
 rfname4_SNR = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130925_063943/sigma_coeff_arr_063943_Oiv.sav'
 RESTORE, rfname4_SNR
 
-PRINT, SIZE(SNR_O_063943[SNR2_O_063943])
 four = SNR_O_063943[SNR2_O_063943]
 
-t = SNR_O_063943[SNR2_O_063943]
-num4_three = WHERE((t GT 3.0), count) ;188
+num4_three = WHERE((SNR_O_063943 GE 3.0) AND FINITE(SNR_O_063943), count)
+PRINT, SIZE(num4_three) ;188
+PRINT, 'SNR_O_063943[num4_three]'
+PRINT, SNR_O_063943[num4_three]
 
-num4_three = WHERE((SNR_O_063943[SNR2_O_063943] GT 3.0), count) ;188
-
-O_063943_a = It_O_063943[SNR2_O_063943]
-O_063943 = O_063943_a[num4_three]
+O_063943 = It_O_063943[num4_three]
+PRINT, 'O_063943'
+PRINT, O_063943
 
 ;restore O IV 110943 TIIs, SNRs, etc.
+
+rfname5_110943 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130925_110943/iso_vars_110943.sav'
+RESTORE, rfname5_110943
 
 rfname5_SNR = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130925_110943/sigma_coeff_arr_110943_Oiv.sav'
 RESTORE, rfname5_SNR
 
-PRINT, SIZE(SNR_O_110943[SNR2_O_110943])
 five = SNR_O_110943[SNR2_O_110943]
 
-t = SNR_O_110943[SNR2_O_110943]
-num5_three = WHERE((t GT 3.0), count) ;304
+num5_three = WHERE((SNR_O_110943 GE 3.0) AND FINITE(SNR_O_110943), count)
+PRINT, SIZE(num5_three) ;304
+PRINT, 'SNR_O_110943[num5_three]'
+PRINT, SNR_O_110943[num5_three]
 
-num5_three = WHERE((SNR_O_110943[SNR2_O_110943] GT 3.0), count) ;304
-
-O_110943_a = It_O_110943[SNR2_O_110943]
-O_110943 = O_110943_a[num5_three]
+O_110943 = It_O_110943[num5_three]
+PRINT, 'O_110943'
+PRINT, O_110943
 
 ;restore O IV 055943 TIIs, SNRs, etc.
+
+rfname6_055943 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_055943/raster/iso_vars_055943.sav'
+RESTORE, rfname6_055943
 
 rfname6_SNR = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_055943/raster/sigma_coeff_arr_055943_Oiv.sav'
 RESTORE, rfname6_SNR
 
-PRINT, SIZE(SNR_O_055943[SNR2_O_055943])
 six = SNR_O_055943[SNR2_O_055943]
 
-t = SNR_O_055943[SNR2_O_055943]
-num6_three = WHERE((t GT 3.0), count) ;35
+num6_three = WHERE((SNR_O_055943 GE 3.0) AND FINITE(SNR_O_055943), count)
+PRINT, SIZE(num6_three) ;35
+PRINT, 'SNR_O_055943[num6_three]'
+PRINT, SNR_O_055943[num6_three]
 
-num6_three = WHERE((SNR_O_055943[SNR2_O_055943] GT 3.0), count) ;35
-
-O_055943_a = It_O_055943[SNR2_O_055943]
-O_055943 = O_055943_a[num6_three]
+O_055943 = It_O_055943[num6_three]
+PRINT, 'O_055943'
+PRINT, O_055943
 
 ;restore O IV 055943_1 TIIs, SNRs, etc.
+
+rfname7_055943_1 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_055943/raster1/iso_vars_055943_1.sav'
+RESTORE, rfname7_055943_1
 
 rfname7_SNR = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_055943/raster1/sigma_coeff_arr_055943_1_Oiv.sav'
 RESTORE, rfname7_SNR
 
-PRINT, SIZE(SNR_O_055943_1[SNR2_O_055943_1])
 seven = SNR_O_055943_1[SNR2_O_055943_1]
 
-t = SNR_O_055943_1[SNR2_O_055943_1]
-num7_three = WHERE((t GT 3.0), count) ;103
+num7_three = WHERE((SNR_O_055943_1 GE 3.0) AND FINITE(SNR_O_055943_1), count)
+PRINT, SIZE(num7_three) ;103
+PRINT, 'SNR_O_055943_1[num7_three]'
+PRINT, SNR_O_055943_1[num7_three]
 
-num7_three = WHERE((SNR_O_055943_1[SNR2_O_055943_1] GT 3.0), count) ;103
-
-O_055943_1_a = It_O_055943_1[SNR2_O_055943_1]
-O_055943_1 = O_055943_1_a[num7_three]
+O_055943_1 = It_O_055943_1[num7_three]
+PRINT, 'O_055943_1'
+PRINT, O_055943_1
 
 ;restore O IV 055943_2 TIIs, SNRs, etc.
+
+rfname8_055943_2 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_055943/raster2/iso_vars_055943_2.sav'
+RESTORE, rfname8_055943_2
 
 rfname8_SNR = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_055943/raster2/sigma_coeff_arr_055943_2_Oiv.sav'
 RESTORE, rfname8_SNR
 
-PRINT, SIZE(SNR_O_055943_2[SNR2_O_055943_2])
 eight = SNR_O_055943_2[SNR2_O_055943_2]
 
-t = SNR_O_055943_2[SNR2_O_055943_2]
-num8_three = WHERE((t GT 3.0), count) ;41
+num8_three = WHERE((SNR_O_055943_2 GE 3.0) AND FINITE(SNR_O_055943_2), count)
+PRINT, SIZE(num8_three) ;41
+PRINT, 'SNR_O_055943_2[num8_three]'
+PRINT, SNR_O_055943_2[num8_three]
 
-num8_three = WHERE((SNR_O_055943_2[SNR2_O_055943_2] GT 3.0), count) ;41
-
-O_055943_2_a = It_O_055943_2[SNR2_O_055943_2]
-O_055943_2 = O_055943_2_a[num8_three]
+O_055943_2 = It_O_055943_2[num8_three]
+PRINT, 'O_055943_2'
+PRINT, O_055943_2
 
 ;restore O IV 20130926_110943 TIIs, SNRs, etc.
+
+rfname9_20130926_110943 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_110943/iso_vars_20130926_110943.sav'
+RESTORE, rfname9_20130926_110943
 
 rfname9_SNR = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130926_110943/sigma_coeff_arr_20130926_110943_Oiv.sav'
 RESTORE, rfname9_SNR
 
-PRINT, SIZE(SNR_O_20130926_110943[SNR2_O_20130926_110943])
 nine = SNR_O_20130926_110943[SNR2_O_20130926_110943]
 
-t = SNR_O_20130926_110943[SNR2_O_20130926_110943]
-num9_three = WHERE((t GT 3.0), count) ;10
+num9_three = WHERE((SNR_O_20130926_110943 GE 3.0) AND FINITE(SNR_O_20130926_110943), count)
+PRINT, SIZE(num9_three) ;10
+PRINT, 'SNR_O_20130926_110943[num9_three]'
+PRINT, SNR_O_20130926_110943[num9_three]
 
-num9_three = WHERE((SNR_O_20130926_110943[SNR2_O_20130926_110943] GT 3.0), count) ;10
-
-O_20130926_110943_a = It_O_20130926_110943[SNR2_O_20130926_110943]
-O_20130926_110943 = O_20130926_110943_a[num9_three]
+O_20130926_110943 = It_O_20130926_110943[num9_three]
+PRINT, 'O_20130926_110943'
+PRINT, O_20130926_110943
 
 ;restore O IV 052432 TIIs, SNRs, etc.
+
+rfname10_052432 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130927_052432/iso_vars_052432.sav'
+RESTORE, rfname10_052432
 
 rfname10_SNR = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130927_052432/sigma_coeff_arr_052432_Oiv.sav'
 RESTORE, rfname10_SNR
 
-PRINT, SIZE(SNR_O_052432[SNR2_O_052432])
 ten = SNR_O_052432[SNR2_O_052432]
 
-t = SNR_O_052432[SNR2_O_052432]
-num10_three = WHERE((t GT 3.0), count) ;151
+num10_three = WHERE((SNR_O_052432 GE 3.0) AND FINITE(SNR_O_052432), count)
+PRINT, SIZE(num10_three) ;151
+PRINT, 'SNR_O_052432[num10_three]'
+PRINT, SNR_O_052432[num10_three]
 
-num10_three = WHERE((SNR_O_052432[SNR2_O_052432] GT 3.0), count) ;151
-
-O_052432_a = It_O_052432[SNR2_O_052432]
-O_052432 = O_052432_a[num10_three]
+O_052432 = It_O_052432[num10_three]
+PRINT, 'O_052432'
+PRINT, O_052432
 
 ;restore O IV 062443 TIIs, SNRs, etc.
+
+rfname11_062443 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130927_062443/iso_vars_062443.sav'
+RESTORE, rfname11_062443
 
 rfname11_SNR = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130927_062443/sigma_coeff_arr_062443_Oiv.sav'
 RESTORE, rfname11_SNR
 
-PRINT, SIZE(SNR_O_062443[SNR2_O_062443])
 eleven = SNR_O_062443[SNR2_O_062443]
 
-t = SNR_O_062443[SNR2_O_062443]
-num11_three = WHERE((t GT 3.0), count) ;35
+num11_three = WHERE((SNR_O_062443 GE 3.0) AND FINITE(SNR_O_062443), count)
+PRINT, SIZE(num11_three) ;35
+PRINT, 'SNR_O_062443[num11_three]'
+PRINT, SNR_O_062443[num11_three]
 
-num11_three = WHERE((SNR_O_062443[SNR2_O_062443] GT 3.0), count) ;35
-
-O_062443_a = It_O_062443[SNR2_O_062443]
-O_062443 = O_062443_a[num11_three]
+O_062443 = It_O_062443[num11_three]
+PRINT, 'O_062443'
+PRINT, O_062443
 
 ;concatenate arrays
 
 total_SNR = [one,two,three,four,five,six,seven,eight,nine,ten,eleven]
-PRINT, SIZE(total_SNR)
+PRINT, SIZE(total_SNR) ;3700
 
 ;===============================================================================
 ;TII: It, int_int_unc
@@ -198,110 +233,176 @@ PRINT, SIZE(total_SNR)
 rfname = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130924_114443/IT_UV_114443.sav'
 RESTORE, rfname
 
-PRINT, N_ELEMENTS(It_Si_114443[num_three])
+UVB_ind_Oiv_three_114443 = UVB_ind_Oiv_114443[num_three]
+PRINT, 'UVB_ind_Oiv_three_114443'
+PRINT, UVB_ind_Oiv_three_114443
 
-Si_114443_a = It_Si_114443[SNR2_O_114443]
-Si_114443 = Si_114443_a[num_three]
+var_Si_three = WHERE(UVB_ind_114443 EQ UVB_ind_Oiv_three_114443)
+MATCH,UVB_ind_114443,UVB_ind_Oiv_three_114443,var_Si_three,dum
+Si_114443 = It_Si_114443[var_Si_three]
+PRINT, N_ELEMENTS(Si_114443) ;157
+PRINT, 'Si_114443'
+PRINT, Si_114443
 
 ;restore Si IV 153943 TIIs, SNRs, etc.
 
 rfname2 = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130924_153943/IT_153943_UV.sav'
 RESTORE, rfname2
 
-PRINT, N_ELEMENTS(It_Si_153943[num2_three])
+UVB_ind_Oiv_three_153943 = UVB_ind_Oiv_153943[num2_three]
+PRINT, 'UVB_ind_Oiv_three_153943'
+PRINT, UVB_ind_Oiv_three_153943
 
-Si_153943_a = It_Si_153943[SNR2_O_153943]
-Si_153943 = Si_153943_a[num2_three]
+var_Si_three_2 = WHERE(UVB_ind_153943 EQ UVB_ind_Oiv_three_153943)
+MATCH,UVB_ind_153943,UVB_ind_Oiv_three_153943,var_Si_three_2,dum
+Si_153943 = It_Si_153943[var_Si_three_2]
+PRINT, N_ELEMENTS(Si_153943) ;117
+PRINT, 'Si_153943'
+PRINT, Si_153943
 
 ;restore Si IV 063943 TIIs, SNRs, etc.
 
 rfname3 = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130925_063943/IT_063943_UV.sav'
 RESTORE, rfname3
 
-PRINT, N_ELEMENTS(It_Si_063943[num4_three])
+UVB_ind_Oiv_three_063943 = UVB_ind_Oiv_063943[num4_three]
+PRINT, 'UVB_ind_Oiv_three_063943'
+PRINT, UVB_ind_Oiv_three_063943
 
-Si_063943_a = It_Si_063943[SNR2_O_063943]
-Si_063943 = Si_063943_a[num4_three]
+var_Si_three_3 = WHERE(UVB_ind_063943 EQ UVB_ind_Oiv_three_063943)
+MATCH,UVB_ind_063943,UVB_ind_Oiv_three_063943,var_Si_three_3,dum
+Si_063943 = It_Si_063943[var_Si_three_3]
+PRINT, N_ELEMENTS(Si_063943) ;188
+PRINT, 'Si_063943'
+PRINT, Si_063943
 
 ;restore Si IV 110943 TIIs, SNRs, etc.
 
 rfname4 = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130925_110943/IT_110943_UV.sav'
 RESTORE, rfname4
 
-PRINT, N_ELEMENTS(It_Si_110943[num5_three])
+UVB_ind_Oiv_three_110943 = UVB_ind_Oiv_110943[num5_three]
+PRINT, 'UVB_ind_Oiv_three_110943'
+PRINT, UVB_ind_Oiv_three_110943
 
-Si_110943_a = It_Si_110943[SNR2_O_110943]
-Si_110943 = Si_110943_a[num5_three]
+var_Si_three_4 = WHERE(UVB_ind_110943 EQ UVB_ind_Oiv_three_110943)
+MATCH,UVB_ind_110943,UVB_ind_Oiv_three_110943,var_Si_three_4,dum
+Si_110943 = It_Si_110943[var_Si_three_4]
+PRINT, N_ELEMENTS(Si_110943) ;304
+PRINT, 'Si_110943'
+PRINT, Si_110943
 
 ;restore Si IV 055943 TIIs, SNRs, etc.
 
 rfname5 = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130926_055943/raster/IT_055943_UV.sav'
 RESTORE, rfname5
 
-PRINT, N_ELEMENTS(It_Si_055943[num6_three])
+UVB_ind_Oiv_three_055943 = UVB_ind_Oiv_055943[num6_three]
+PRINT, 'UVB_ind_Oiv_three_055943'
+PRINT, UVB_ind_Oiv_three_055943
 
-Si_055943_a = It_Si_055943[SNR2_O_055943]
-Si_055943 = Si_055943_a[num6_three]
+var_Si_three_5 = WHERE(UVB_ind_055943 EQ UVB_ind_Oiv_three_055943)
+MATCH,UVB_ind_055943,UVB_ind_Oiv_three_055943,var_Si_three_5,dum
+Si_055943 = It_Si_055943[var_Si_three_5]
+PRINT, N_ELEMENTS(Si_055943) ;35
+PRINT, 'Si_055943'
+PRINT, Si_055943
 
 ;restore Si IV 055943_1 TIIs, SNRs, etc.
 
 rfname6 = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130926_055943/raster1/IT_055943_1_UV.sav'
 RESTORE, rfname6
 
-PRINT, N_ELEMENTS(It_Si_055943_1[num7_three])
+UVB_ind_Oiv_three_055943_1 = UVB_ind_Oiv_055943_1[num7_three]
+PRINT, 'UVB_ind_Oiv_three_055943_1'
+PRINT, UVB_ind_Oiv_three_055943_1
 
-Si_055943_1_a = It_Si_055943_1[SNR2_O_055943_1]
-Si_055943_1 = Si_055943_1_a[num7_three]
+var_Si_three_6 = WHERE(UVB_ind_055943_1 EQ UVB_ind_Oiv_three_055943_1)
+MATCH,UVB_ind_055943_1,UVB_ind_Oiv_three_055943_1,var_Si_three_6,dum
+Si_055943_1 = It_Si_055943_1[var_Si_three_6]
+PRINT, N_ELEMENTS(Si_055943_1) ;103
+PRINT, 'Si_055943_1'
+PRINT, Si_055943_1
 
 ;restore Si IV 055943_2 TIIs, SNRs, etc.
 
 rfname7 = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130926_055943/raster2/IT_055943_2_UV.sav'
 RESTORE, rfname7
 
-PRINT, N_ELEMENTS(It_Si_055943_2[num8_three])
+UVB_ind_Oiv_three_055943_2 = UVB_ind_Oiv_055943_2[num8_three]
+PRINT, 'UVB_ind_Oiv_three_055943_2'
+PRINT, UVB_ind_Oiv_three_055943_2
 
-Si_055943_2_a = It_Si_055943_2[SNR2_O_055943_2]
-Si_055943_2 = Si_055943_2_a[num8_three]
+var_Si_three_7 = WHERE(UVB_ind_055943_2 EQ UVB_ind_Oiv_three_055943_2)
+MATCH,UVB_ind_055943_2,UVB_ind_Oiv_three_055943_2,var_Si_three_7,dum
+Si_055943_2 = It_Si_055943_2[var_Si_three_7]
+PRINT, N_ELEMENTS(Si_055943_2) ;41
+PRINT, 'Si_055943_2'
+PRINT, Si_055943_2
 
 ;restore Si IV 20130926_110943 TIIs, SNRs, etc.
 
 rfname8 = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130926_110943/IT_20130926_110943_UV.sav'
 RESTORE, rfname8
 
-PRINT, N_ELEMENTS(It_Si_20130926_110943[num9_three])
+UVB_ind_Oiv_three_20130926_110943 = UVB_ind_Oiv_20130926_110943[num9_three]
+PRINT, 'UVB_ind_Oiv_three_20130926_110943'
+PRINT, UVB_ind_Oiv_three_20130926_110943
 
-Si_20130926_110943_a = It_Si_20130926_110943[SNR2_O_20130926_110943]
-Si_20130926_110943 = Si_20130926_110943_a[num9_three]
+var_Si_three_8 = WHERE(UVB_ind_20130926_110943 EQ UVB_ind_Oiv_three_20130926_110943)
+MATCH,UVB_ind_20130926_110943,UVB_ind_Oiv_three_20130926_110943,var_Si_three_8,dum
+Si_20130926_110943 = It_Si_20130926_110943[var_Si_three_8]
+PRINT, N_ELEMENTS(Si_20130926_110943) ;10
+PRINT, 'Si_20130926_110943'
+PRINT, Si_20130926_110943
 
 ;restore Si IV 052432 TIIs, SNRs, etc.
 
 rfname9 = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130927_052432/IT_052432_UV.sav'
 RESTORE, rfname9
 
-PRINT, N_ELEMENTS(It_Si_052432[num10_three])
+UVB_ind_Oiv_three_052432 = UVB_ind_Oiv_052432[num10_three]
+PRINT, 'UVB_ind_Oiv_three_052432'
+PRINT, UVB_ind_Oiv_three_052432
 
-Si_052432_a = It_Si_052432[SNR2_O_052432]
-Si_052432 = Si_052432_a[num10_three]
+var_Si_three_9 = WHERE(UVB_ind_052432 EQ UVB_ind_Oiv_three_052432)
+MATCH,UVB_ind_052432,UVB_ind_Oiv_three_052432,var_Si_three_9,dum
+Si_052432 = It_Si_052432[var_Si_three_9]
+PRINT, N_ELEMENTS(Si_052432) ;151
+PRINT, 'Si_052432'
+PRINT, Si_052432
 
 ;restore Si IV 062443 TIIs, SNRs, etc.
 
 rfname10 = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130927_062443/IT_062443_UV.sav'
 RESTORE, rfname10
 
-PRINT, N_ELEMENTS(It_Si_062443[num11_three])
+UVB_ind_Oiv_three_062443 = UVB_ind_Oiv_062443[num11_three]
+PRINT, 'UVB_ind_Oiv_three_062443'
+PRINT, UVB_ind_Oiv_three_062443
 
-Si_062443_a = It_Si_062443[SNR2_O_062443]
-Si_062443 = Si_062443_a[num11_three]
+var_Si_three_10 = WHERE(UVB_ind_062443 EQ UVB_ind_Oiv_three_062443)
+MATCH,UVB_ind_062443,UVB_ind_Oiv_three_062443,var_Si_three_10,dum
+Si_062443 = It_Si_062443[var_Si_three_10]
+PRINT, N_ELEMENTS(Si_062443) ;35
+PRINT, 'Si_062443'
+PRINT, Si_062443
 
 ;restore Si IV 050945 TIIs, SNRs, etc.
 
 rfname11 = '/data/khnum/REU2018/abacon/data/detection/1394_SGF/IT_UV_050945.sav'
 RESTORE, rfname11
 
-PRINT, N_ELEMENTS(It_Si_050945[num3_three])
+UVB_ind_Oiv_three_050945 = UVB_ind_Oiv_050945[num3_three]
+PRINT, 'UVB_ind_Oiv_three_050945'
+PRINT, UVB_ind_Oiv_three_050945
 
-Si_050945_a = It_Si_050945[SNR2_O_050945]
-Si_050945 = Si_050945_a[num3_three]
+var_Si_three_11 = WHERE(UVB_ind_clean EQ UVB_ind_Oiv_three_050945)
+MATCH,UVB_ind_clean,UVB_ind_Oiv_three_050945,var_Si_three_11,dum
+Si_050945 = It_Si_050945[var_Si_three_11]
+PRINT, N_ELEMENTS(Si_050945) ;103
+PRINT, 'Si_050945'
+PRINT, Si_050945
 
 ;===============================================================================
 ;retrieve ratios
@@ -540,11 +641,11 @@ PLOT, x_hist, D_hist, PSYM = 10, XTITLE = "Estimated Densities", YTITLE = "Frequ
 
 !P.FONT = 1
 
-TVLCT, [[255],[255],[255]], 1
+TVLCT, [[0],[0],[0]], 1
 SET_PLOT, 'ps'
-DEVICE, XSIZE = 15, YSIZE = 8.8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/density_estimates/dens_est_histogram.eps', /ENCAPSULATED
+DEVICE, XSIZE = 15, YSIZE = 10, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/density_estimates/dens_est_histogram.eps', /ENCAPSULATED
 
-PLOT, x_hist, D_hist, PSYM = 10, XTITLE = "Estimated Densities", YTITLE = "Frequency", TITLE = "Histogram of Estimated Densities of AR11850", POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 1, XCHARSIZE = 1.5, YCHARSIZE = 1.5, CHARSIZE = 1.5, XSTYLE = 1, THICK = 4, XTHICK = 10, YTHICK = 10
+PLOT, x_hist, D_hist, PSYM = 10, XTITLE = "Electron Density (cm^-3)", YTITLE = "Frequency", POSITION = [x0,y0,x0+dx,y0+dy], COLOR = 1, XCHARSIZE = 1.5, YCHARSIZE = 1.5, CHARSIZE = 1.5, XSTYLE = 1, THICK = 10, XTHICK = 10, YTHICK = 10, CHARTHICK = 5
 
 DEVICE, /CLOSE
 
