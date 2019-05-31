@@ -225,16 +225,16 @@ TOC ;Time elapsed: ~9.0 sec
 
 ;remove any erroneous fits to Si IV 1403 line
 
+PRINT, SIZE(coeff_arr_114443_Oiv2)
+
+one = coeff_arr_114443_Oiv2[1,*,*]
+coeff_arr_114443_Oiv2_clean = WHERE((one GT 1400.6) AND (one LT 1401.6), count, COMPLEMENT = non)
+
 ;get UVB indices for O IV
 
 UVB_ind_Oiv_114443 = UVB_ind_114443[coeff_arr_114443_Oiv2_clean]
 PRINT, UVB_ind_Oiv_114443
 PRINT, N_ELEMENTS(UVB_ind_Oiv_114443) ;621
-
-PRINT, SIZE(coeff_arr_114443_Oiv2)
-
-one = coeff_arr_114443_Oiv2[1,*,*]
-coeff_arr_114443_Oiv2_clean = WHERE((one GT 1400.6) AND (one LT 1401.6), count, COMPLEMENT = non)
 
 PRINT, SIZE(coeff_arr_114443_Oiv2_clean)
 
