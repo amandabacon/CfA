@@ -151,9 +151,9 @@ SAVE, coeff_114443_UV, inst_unc_Si_114443, sigma_coeff, sigma_coeff_arr, coeff_a
 
 ;save as png
 
-;TVLCT, [[255], [255], [255]], 2
+;TVLCT, [[0], [0], [0]], 1
 ;WINDOW, XSIZE = 900, YSIZE = 700, RETAIN = 2
-;PLOT, lambda1394_114443[18:141], prof, TITLE = 'AR11850_114443 Emission Line Profile', XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395], POSITION = [x0,y0,x0+dx,y0+dy], XTHICK = 4, YTHICK = 4, XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.45, YCHARSIZE = 1.45, COLOR = 2
+;PLOT, lambda1394_114443[18:141], prof, TITLE = 'AR11850_114443 Emission Line Profile', XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395], POSITION = [x0,y0,x0+dx,y0+dy], XTHICK = 10, YTHICK = 10, XSTYLE = 1, THICK = 10, CHARSIZE = 1.8, XCHARSIZE = 1.5, YCHARSIZE = 1.5, COLOR = 1
 
 ;XYOUTS, 1392.5, 360, 'Fe II', CHARSIZE = 1.8, COLOR = 2
 ;XYOUTS, 1393.05, 360, 'Ni II', CHARSIZE = 1.8, COLOR = 2
@@ -175,10 +175,10 @@ SAVE, coeff_114443_UV, inst_unc_Si_114443, sigma_coeff, sigma_coeff_arr, coeff_a
 ;!P.BACKGROUND = 1
 
 ;SET_PLOT, 'ps'
-;DEVICE, XSIZE = 15, YSIZE = 8.8, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130924_114443/funky_114443.eps', /ENCAPSULATED
+;DEVICE, XSIZE = 15, YSIZE = 10, /INCHES, COLOR = 1, BITS_PER_PIXEL = 8, SET_FONT = 'TIMES', /TT_FONT, FILENAME = '/data/khnum/REU2018/abacon/data/detection/AR11850_20130924_114443/funky_114443.eps', /ENCAPSULATED
 
-;TVLCT, [[255], [255], [255]], 2
-;PLOT, lambda1394_114443[18:141], prof, TITLE = 'AR11850_114443 Si IV 1393.8 '+STRING("305B)+' Emission Line Profile', XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395], POSITION = [x0,y0,x0+dx,y0+dy], XSTYLE = 1, THICK = 4, CHARSIZE = 1.8, XCHARSIZE = 1.35, YCHARSIZE = 1.4, COLOR = 2, XTHICK = 10, YTHICK = 10
+;TVLCT, [[0], [0], [0]], 1
+;PLOT, lambda1394_114443[18:141], prof, TITLE = 'AR11850_114443 Si IV 1393.8 '+STRING("305B)+' Emission Line Profile', XTITLE = 'Wavelength['+STRING("305B)+']', YTITLE = 'Instensity [Arb. Units]', XRANGE = [1392.2,1395], POSITION = [x0,y0,x0+dx,y0+dy], XSTYLE = 1, THICK = 10, CHARSIZE = 1.8, XCHARSIZE = 1.5, YCHARSIZE = 1.5, COLOR = 1, XTHICK = 10, YTHICK = 10
 
 ;XYOUTS, 1392.5, 360, 'Fe II', CHARSIZE = 1.8, COLOR = 2
 ;XYOUTS, 1393.05, 360, 'Ni II', CHARSIZE = 1.8, COLOR = 2
