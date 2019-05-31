@@ -217,6 +217,12 @@ PRINT, SIZE(coeff_arr_052432_Oiv2)
 one = coeff_arr_052432_Oiv2[1,*,*]
 coeff_arr_052432_Oiv2_clean = WHERE((one GT 1400.6) AND (one LT 1401.6), count, COMPLEMENT = non)
 
+;get UVB indices for O IV
+
+UVB_ind_Oiv_052432 = UVB_ind_052432[coeff_arr_052432_Oiv2_clean]
+PRINT, UVB_ind_Oiv_052432
+PRINT, N_ELEMENTS(UVB_ind_Oiv_052432) ;366
+
 PRINT, SIZE(coeff_arr_052432_Oiv2_clean)
 
 zero = coeff_arr_052432_Oiv2[0,*,*]
@@ -298,7 +304,7 @@ PRINT, 'MEAN: ', MOM[0] & PRINT, 'VARIANCE: ', MOM[1] & PRINT, 'SKEWNESS: ', MOM
 ;save parameters from FOR loop
 
 sfname2 = '/data/khnum/REU2018/abacon/data/detection/Oiv_1401_SGF/20130927_052432/sigma_coeff_arr_052432_Oiv.sav'
-SAVE, coeff_052432_Oiv2, inst_unc_O_052432, sigma_coeff, sigma_coeff_arr, coeff_arr_052432_Oiv2, It_O_052432, int_int_unc_O_052432, SNR_0_O_052432, SNR_O_052432, SNR2_O_052432, FILENAME = sfname2
+SAVE, UVB_ind_Oiv_052432, coeff_052432_Oiv2, inst_unc_O_052432, sigma_coeff, sigma_coeff_arr, coeff_arr_052432_Oiv2, It_O_052432, int_int_unc_O_052432, SNR_0_O_052432, SNR_O_052432, SNR2_O_052432, FILENAME = sfname2
 
 OBJ_DESTROY, dataRast_052432_Oiv
 OBJ_DESTROY, data1400_052432_Oiv
